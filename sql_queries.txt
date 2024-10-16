@@ -1,0 +1,38 @@
+use dev2;
+SELECT *
+FROM dev2.rawdata2.stock_prices
+WHERE SYMBOL = 'AAPL'
+ORDER BY DATE DESC
+LIMIT 10;
+SELECT MAX(CLOSE) AS highest_close, MIN(CLOSE) AS lowest_close
+FROM dev2.rawdata2.stock_prices
+WHERE SYMBOL = 'GOOG'; 
+
+SELECT 
+    SYMBOL,
+    AVG(OPEN) AS average_open,
+    MAX(OPEN) AS max_open,
+    MIN(OPEN) AS min_open,
+    COUNT(*) AS total_days
+FROM 
+    dev2.rawdata2.stock_prices
+WHERE 
+    DATE BETWEEN '2024-01-01' AND '2024-12-31' AND SYMBOL = 'AAPL'
+GROUP BY 
+    SYMBOL
+HAVING 
+    AVG(OPEN) > 100 
+ORDER BY 
+    average_open DESC;  
+SELECT 
+    SYMBOL,
+    DATE,
+    CLOSE,
+    VOLUME
+FROM 
+    dev2.rawdata2.stock_prices
+WHERE 
+    DATE BETWEEN '2024-01-01' AND '2024-12-31' 
+ORDER BY 
+    SYMBOL, VOLUME DESC ; 
+
